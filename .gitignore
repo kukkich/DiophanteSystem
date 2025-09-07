@@ -1,0 +1,9 @@
+bin/
+obj/
+/packages/
+riderModule.iml
+/_ReSharper.Caches/
+/.idea/.idea.DiophanteSystem/.idea/.gitignore
+/.idea/.idea.DiophanteSystem/.idea/encodings.xml
+/.idea/.idea.DiophanteSystem/.idea/indexLayout.xml
+/.idea/.idea.DiophanteSystem/.idea/vcs.xml
