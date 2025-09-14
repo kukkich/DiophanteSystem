@@ -1,10 +1,10 @@
 ﻿using DiophanteSystem;
 
 
-static void NormalizeRow(int[,] a, int row, int variablesCount, int equationsCount)
+static int NormalizeRow(int[,] a, int row, int pivot, int variablesCount, int equationsCount)
 {
     var greatestCommonDivisor = 0;
-    for (var column = row; column < variablesCount; column++)
+    for (var column = pivot; column < variablesCount; column++)
         greatestCommonDivisor = MathInt.GreatestCommonDivisor(greatestCommonDivisor, a[row, column]);
     
     var freeCoefficient = a[row, variablesCount];
@@ -13,6 +13,8 @@ static void NormalizeRow(int[,] a, int row, int variablesCount, int equationsCou
     {
         if (freeCoefficient != 0)
             throw new InvalidOperationException("Inconsistent equation: 0 = nonzero");
+        
+        return pivot;
     }
     var (_, remainder) = MathInt.Divide(freeCoefficient, greatestCommonDivisor);
     if (remainder != 0)
@@ -21,19 +23,19 @@ static void NormalizeRow(int[,] a, int row, int variablesCount, int equationsCou
             $"Can't normalize row {row}. GCD: {greatestCommonDivisor}, freeCoefficient: {freeCoefficient}");
     }
 
-    while (a.Row(row).Skip(row).SkipLast(1).Count(x => x != 0) > 1)
+    while (a.Row(row).Skip(pivot).SkipLast(1).Count(x => x != 0) > 1)
     {
         var min = a.Row(row)
             .SkipLast(1)
             .Select((value, index) => (value, index))
-            .Skip(row)
+            .Skip(pivot)
             .Where(x => x.value != 0)
             .MinBy(x => Math.Abs(x.value));
 
         var another = a.Row(row)
             .SkipLast(1)
             .Select((value, index) => (value, index))
-            .Skip(row)
+            .Skip(pivot)
             .First(x => x.value != 0 && x.index != min.index);
 
         var (q, _) = MathInt.Divide(another.value, min.value);
@@ -55,19 +57,19 @@ static void NormalizeRow(int[,] a, int row, int variablesCount, int equationsCou
 
     a.AddColumn(variablesCount, lastNonZero.index, -p);
 
-    if (lastNonZero.index > row)
-    {
-        a.SwapColumns(row, lastNonZero.index); // put on diaginal;
-    }
+    a.SwapColumns(pivot, lastNonZero.index); // put on diaginal;
+
+    return pivot + 1;
 }
 
-static Solution Solve(int equationsCount, int[,] ints, int variablesCount)
+static Solution Solve(int equationsCount, int[,] matrix, int variablesCount)
 {
+    var pivot = 0;
     try
     {
         for (var i = 0; i < equationsCount; i++)
         {
-            NormalizeRow(ints, i, variablesCount, equationsCount);
+            pivot = NormalizeRow(matrix, i, pivot, variablesCount, equationsCount);
         }
     }
     catch (Exception e)
@@ -78,19 +80,20 @@ static Solution Solve(int equationsCount, int[,] ints, int variablesCount)
 
 
     var particular = new int[variablesCount];
-    var freeCoefficients = new int[variablesCount, variablesCount - equationsCount];
+    var freeCoefficients = new int[variablesCount - pivot, variablesCount];
     for (var i = 0; i < variablesCount; i++)
     {
-        particular[i] = ints[equationsCount + i, variablesCount];
+        particular[i] = matrix[equationsCount + i, variablesCount];
     }
 
-    for (var row = 0; row < variablesCount; row++)
+    for (var k = 0; k < variablesCount - equationsCount; k++)
     {
-        for (var column = 0; column < variablesCount - equationsCount; column++)
+        for (var variableNumber = 0; variableNumber < variablesCount; variableNumber++)
         {
-            freeCoefficients[row, column] = ints[row + equationsCount, column + variablesCount - 1];
+            freeCoefficients[k, variableNumber] = matrix[equationsCount + variableNumber, pivot + k];
         }
     }
+
 
     var solution1 = new Solution(particular, freeCoefficients);
     return solution1;
@@ -116,6 +119,7 @@ var coefficients = new[,] // equationsCount, variablesCount + 1
     { 0, 0, 1, -3 },
     { 1, 0, 0, -12 },
     { 0, 0, 1, -3 },
+    { 1, 0, 0, -12 },
 };
 
 var matrix = new int[equationsCount + variablesCount, variablesCount + 1];

@@ -13,6 +13,9 @@ public static class MatrixExtensions
     
     public static void SwapColumns(this int[,] a, int column1, int column2)
     {
+        if (column1 == column2)
+            return;
+        
         var rows = a.GetLength(0);
         for (var i = 0; i < rows; i++)
         {
