@@ -2,7 +2,7 @@
 
 public static class MathInt
 {
-    public static int GreatestCommonDivisor(int a, int b)
+    public static long GreatestCommonDivisor(long a, long b)
     {
         a = Math.Abs(a);
         b = Math.Abs(b);
@@ -18,7 +18,7 @@ public static class MathInt
     /// <summary>
     /// a = p*b + r, q in [0, |b|).
     /// </summary>
-    public static (int Quotient, int Remainder) Divide(int a, int b)
+    public static (long Quotient, long Remainder) Divide(long a, long b)
     {
         if (b == 0) throw new DivideByZeroException();
 

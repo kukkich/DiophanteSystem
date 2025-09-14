@@ -2,7 +2,7 @@
 
 public static class DiophantineSolutionVerifier
 {
-    public static void VerifySolution(Solution solution, int[,] coefficients)
+    public static void VerifySolution(Solution solution, long[,] coefficients)
     {
         var variablesCount = coefficients.GetLength(1) - 1;
 
@@ -15,7 +15,7 @@ public static class DiophantineSolutionVerifier
         // 2. Проверка для каждого свободного вектора:
         for (var k = 0; k < solution.FreeVariablesCount; k++)
         {
-            var candidate = new int[variablesCount];
+            var candidate = new long[variablesCount];
             for (var j = 0; j < variablesCount; j++)
                 candidate[j] = particular[j] + freeVectors[k, j];
 
@@ -23,7 +23,7 @@ public static class DiophantineSolutionVerifier
         }
     }
 
-    private static bool Satisfies(int[,] coeffs, int[] vector)
+    private static bool Satisfies(long[,] coeffs, long[] vector)
     {
         var n = coeffs.GetLength(0);
         var m = coeffs.GetLength(1) - 1;
@@ -32,7 +32,7 @@ public static class DiophantineSolutionVerifier
         {
             long lhs = 0;
             for (var j = 0; j < m; j++)
-                lhs += (long)coeffs[i, j] * vector[j];
+                lhs += coeffs[i, j] * vector[j];
 
             if (lhs != -1 * coeffs[i, m])
                 return false;

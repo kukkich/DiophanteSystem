@@ -2,7 +2,7 @@
 
 public static class DiophanteSystemSolver
 {
-    public static Solution Solve(int equationsCount, int[,] matrix, int variablesCount)
+    public static Solution Solve(int equationsCount, long[,] matrix, int variablesCount)
     {
         var pivot = 0;
         try
@@ -18,8 +18,8 @@ public static class DiophanteSystemSolver
             return Solution.Empty;
         }
 
-        var particular = new int[variablesCount];
-        var freeCoefficients = new int[variablesCount - pivot, variablesCount];
+        var particular = new long[variablesCount];
+        var freeCoefficients = new long[variablesCount - pivot, variablesCount];
         for (var i = 0; i < variablesCount; i++)
         {
             particular[i] = matrix[equationsCount + i, variablesCount];
@@ -37,9 +37,9 @@ public static class DiophanteSystemSolver
         return solution1;
     }
     
-    private static int NormalizeRow(int[,] a, int row, int pivot, int variablesCount)
+    private static int NormalizeRow(long[,] a, int row, int pivot, int variablesCount)
     {
-        var greatestCommonDivisor = 0;
+        var greatestCommonDivisor = 0L;
         for (var column = pivot; column < variablesCount; column++)
             greatestCommonDivisor = MathInt.GreatestCommonDivisor(greatestCommonDivisor, a[row, column]);
 

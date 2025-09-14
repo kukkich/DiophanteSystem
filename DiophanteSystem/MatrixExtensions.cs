@@ -2,7 +2,7 @@
 
 public static class MatrixExtensions
 {
-    public static void AddColumn(this int[,] a, int destinationColumn, int sourceColumn, int coefficient)
+    public static void AddColumn(this long[,] a, int destinationColumn, int sourceColumn, long coefficient)
     {
         var rows = a.GetLength(0);
         for (var i = 0; i < rows; i++)
@@ -11,7 +11,7 @@ public static class MatrixExtensions
         }
     }
     
-    public static void SwapColumns(this int[,] a, int column1, int column2)
+    public static void SwapColumns(this long[,] a, int column1, int column2)
     {
         if (column1 == column2)
             return;
@@ -23,7 +23,7 @@ public static class MatrixExtensions
         }
     }
 
-    public static void SwapRows(this int[,] a, int row1, int row2)
+    public static void SwapRows(this long[,] a, int row1, int row2)
     {
         var columns = a.GetLength(1);
         for (var i = 0; i < columns; i++)

@@ -5,7 +5,7 @@ public class DiophantineSolverTests
     [Test(Description = "2x = 4")]
     public void SingleEquation_SimpleSolution()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 2, -4 }
         }; 
@@ -22,7 +22,7 @@ public class DiophantineSolverTests
 
     public void SingleEquation_NoSolutions()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 0, -5 }
         };
@@ -38,7 +38,7 @@ public class DiophantineSolverTests
     public void DependentEquations_InfiniteSolutions()
     {
 
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 1, 1, -2 },
             { 2, 2, -4 }
@@ -58,7 +58,7 @@ public class DiophantineSolverTests
                         """)]
     public void UniqueSolution_FullRank()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 1, 1, -2 },
             { 1, -1, 0 }
@@ -79,7 +79,7 @@ public class DiophantineSolverTests
     public void MoreEquationsThanVariables_Consistent()
     {
 
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 2, -2 },
             { 1, -1 }
@@ -99,7 +99,7 @@ public class DiophantineSolverTests
                         """)]
     public void MoreEquationsThanVariables_Inconsistent()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 1, -1 },
             { 1, -2 }
@@ -112,7 +112,7 @@ public class DiophantineSolverTests
     [Test]
     public void DuplicatedRows_Consistent()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 0, 1, 0,  2 },
             { 0, 0, 1, -3 },
@@ -128,7 +128,7 @@ public class DiophantineSolverTests
     [Test]
     public void ByHandSolved()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 3, 5, 7, -8 },
             { 2, 1, 4, -3 },
@@ -142,7 +142,7 @@ public class DiophantineSolverTests
     [Test]
     public void Book_Example3()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 3, 4, 0, -8 },
             { 7, 0, 5, -6 },
@@ -156,7 +156,7 @@ public class DiophantineSolverTests
     [Test]
     public void Book_Example4()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 3, 6, 0, -8 },
             { 7, 0, 5, -6 },
@@ -169,7 +169,7 @@ public class DiophantineSolverTests
     [Test]
     public void Book_Example4_RowSwapped()
     {
-        int[,] coefficients =
+        long[,] coefficients =
         {
             { 7, 0, 5, -6 },
             { 3, 6, 0, -8 },
@@ -179,9 +179,9 @@ public class DiophantineSolverTests
         Assert.That(solution.IsEmpty, Is.True);
     }
     
-    private Solution RunSolver(int equationsCount, int variablesCount, int[,] coefficients)
+    private Solution RunSolver(int equationsCount, int variablesCount, long[,] coefficients)
     {
-        var matrix = new int[equationsCount + variablesCount, variablesCount + 1];
+        var matrix = new long[equationsCount + variablesCount, variablesCount + 1];
         for (var i = 0; i < equationsCount; i++)
         {
             for (var j = 0; j < variablesCount + 1; j++)

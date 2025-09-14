@@ -4,18 +4,18 @@ var input = Console.ReadLine().Split(' ');
 var equationsCount = int.Parse(input[0]);
 var variablesCount = int.Parse(input[1]);
 
-var coefficients = new int[equationsCount, variablesCount + 1];
+var coefficients = new long[equationsCount, variablesCount + 1];
 
 for (var i = 0; i < equationsCount; i++)
 {
     var equationCoefficients = Console.ReadLine().Split(' ');
     for (var j = 0; j <= variablesCount; j++)
     {
-        coefficients[i, j] = int.Parse(equationCoefficients[j]);
+        coefficients[i, j] = long.Parse(equationCoefficients[j]);
     }
 }
 
-var matrix = new int[equationsCount + variablesCount, variablesCount + 1];
+var matrix = new long[equationsCount + variablesCount, variablesCount + 1];
 
 for (var i = 0; i < equationsCount; i++)
 {
