@@ -23,15 +23,6 @@ public static class MatrixExtensions
         }
     }
 
-    public static void SwapRows(this long[,] a, int row1, int row2)
-    {
-        var columns = a.GetLength(1);
-        for (var i = 0; i < columns; i++)
-        {
-            (a[row1, i], a[row2, i]) = (a[row2, i], a[row1, i]);
-        }
-    }
-
     public static IEnumerable<T> Row<T>(this T[,] a, int row)
     {
         var columns = a.GetLength(1);

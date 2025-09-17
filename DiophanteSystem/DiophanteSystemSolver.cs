@@ -14,7 +14,6 @@ public static class DiophanteSystemSolver
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
             return Solution.Empty;
         }
 
@@ -25,7 +24,7 @@ public static class DiophanteSystemSolver
             particular[i] = matrix[equationsCount + i, variablesCount];
         }
 
-        for (var k = 0; k < variablesCount - equationsCount; k++)
+        for (var k = 0; k < variablesCount - pivot; k++)
         {
             for (var variableNumber = 0; variableNumber < variablesCount; variableNumber++)
             {
@@ -33,8 +32,10 @@ public static class DiophanteSystemSolver
             }
         }
 
-        var solution1 = new Solution(particular, freeCoefficients);
-        return solution1;
+        
+        
+        var solution = new Solution(particular, freeCoefficients);
+        return solution;
     }
     
     private static int NormalizeRow(long[,] a, int row, int pivot, int variablesCount)

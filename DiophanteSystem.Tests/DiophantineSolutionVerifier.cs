@@ -9,10 +9,10 @@ public static class DiophantineSolutionVerifier
         var particular = solution.Particular;
         var freeVectors = solution.FreeVariables;
 
-        // 1. Проверка: частное решение удовлетворяет системе
+        // частное решение
         Assert.That(Satisfies(coefficients, particular), Is.True);
 
-        // 2. Проверка для каждого свободного вектора:
+        // Проверка для каждого свободного вектора:
         for (var k = 0; k < solution.FreeVariablesCount; k++)
         {
             var candidate = new long[variablesCount];
